@@ -14,7 +14,7 @@ export default class Nav extends Component {
                     <div className="col">
                         <ul className="nav">
                             <li className="nav-item">
-                                <Link to ="/" className="nav-link">Home</Link>
+                                <Link to ="/Home" className="nav-link">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link">Orders</Link>
@@ -25,7 +25,6 @@ export default class Nav extends Component {
                         </ul>
                     </div>
                 </div>
-             
             </div>
         )
     }

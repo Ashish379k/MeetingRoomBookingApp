@@ -1,4 +1,4 @@
-// import {GET_ROOM_DETAILS,LOG_IN} from './Action'
+import {BOOK_ROOM,SET_DATE} from './Action'
 
 const initialStore = {
     roomsDataBase: [
@@ -133,13 +133,28 @@ const initialStore = {
         }
 
     ],
-    isLoggedin:false
+    isLoggedin:false,
+    date:{}
 }
 
 const reducer = (state=initialStore,action)=>{
     switch(action.type){
+    case BOOK_ROOM:
+        const myRoom = state.roomsDataBase.map(ele=>{
+            if(ele.name === action.name){
+                ele.isBookedOn.push(action.date)
+            }
+        })
+        return{
+          ...state,
+          roomsDataBase:myRoom
+        }
 
-   
+   case SET_DATE:
+       return{
+           ...state,
+           date:{...action.payload}
+       }
 
         default:
             return state

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MeetingRoomCard from './MeetingRoomCard'
 import {connect} from 'react-redux'
 import {getAllRooms} from '../../redux/Action' 
+import {Redirect,Link} from 'react-router-dom';
 
 class Home extends Component {
     constructor(props) {
@@ -45,47 +46,52 @@ class Home extends Component {
         }
         this.setState({
             arr:arr,
-            start:0,
-            end:this.state.arr.length-1
-
         })
     }
         filterby = (e) =>{
-        var  arr = [...this.state.arr]
+        var  arr = [...this.props.roomsDataBase]
          if(e.target.value=="Floor-1"){
-            var newArr = arr.map((ele)=>{
+            var newArr = arr.filter((ele)=>{
                  if(ele.floor=="1"){
                      return ele
                  }
              })
          }
          else if(e.target.value=="Floor-2"){
-            var newArr = arr.map((ele)=>{
+            var newArr = arr.filter((ele)=>{
                 if(ele.floor=="2"){
                     return ele
                 }
             })
         }
          else if(e.target.value=="Floor-3"){
-            var newArr = arr.map((ele)=>{
+            var newArr = arr.filter((ele)=>{
                 if(ele.floor=="3"){
                     return ele
                 }
             })
         }
          else if(e.target.value=="Floor-4"){
-            var  newArr = arr.map((ele)=>{
+            var  newArr = arr.filter((ele)=>{
                 if(ele.floor=="4"){
                     return ele
                 }
             })
         }
-        // this.setState({
-        //     arr:newArr,
-        //     start:0,
-        //     end:this.state.arr.length-1
-
-        // })
+        else{
+            var newArr = [...arr]
+            this.setState({
+                arr:newArr,
+                start:0,
+                end:5
+                })
+            return
+        }
+        this.setState({
+            arr:newArr,
+            start:0,
+            end:this.props.roomsDataBase.length
+        })
       
      }
 
@@ -131,16 +137,18 @@ class Home extends Component {
                 </div>
             </div>
             <div className="container m-auto text-center">
-            <div className="row m-auto justify-content-center text-center">
-                <div className="col">
-                    <nav aria-label="Page navigation example m-auto">
-                        <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#"></a></li>
-                            {pagination}
-                        </ul>
-                    </nav>
+                <div className="row m-auto justify-content-center text-center">
+                    <div className="col-6 m-auto">
+                        <nav aria-label="Page navigation example m-auto">
+                            <ul class="pagination">
+                                {pagination}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div className="col-6 m-auto">
+                       <Link className="btn btn-warning" to ='/'>Back to Dashboard</Link>
+                    </div>
                 </div>
-            </div>
             </div>
         </>
         )

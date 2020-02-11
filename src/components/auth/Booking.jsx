@@ -1,14 +1,50 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bookingRoom} from '../../redux/Action'
 
 
-export default class Booking extends Component  {
+class Booking extends Component  {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             totalDays:0
+        }
+    }
+    
+    componentDidMount =()=>{
+        let totalDays = this.getDays(this.props.date.startDate,this.props.date.endDate)
+        this.setState({
+            totalDays:totalDays
+        })
+     
+    }
+
+    handleSubmit = (e)=>{
+        e.preventDefault()
+        const newName = e.target.value 
+        const payload = {...this.props.date}
+        this.props.bookingRoom(payload,newName)
+        console.log(this.props.roomsDataBase)
+
+    }
+    getDays = (date1,date2)=>{
+        let arr1 = date1.split('-')
+        let arr2 = date2.split('-')
+        let days = 0
+            days = days + Math.abs(Number(arr1[1]-arr2[1]))*30
+            days = days + Math.abs(Number(arr1[2]-arr2[2]))
+        return days+1
+    }
+  
     render() {
         const room = this.props.roomsDataBase.filter(ele=>{
-            if (ele.name == this.props.match.params.id){
-                return ele
+            if(this.props.match.params.id){
+                if (ele.name == this.props.match.params.id){
+                    return ele
+                }
             }
-            
         })
         if(room.length!=0){
         return (
@@ -33,16 +69,17 @@ export default class Booking extends Component  {
                             <div className="form-group row">
                                 <label for="start" className="col-sm-2 col-form-label">From</label>
                                 <div className="col-sm-10">
-                                    <input type="date"  className="form-control" id="start" value="email@example.com" />
+                                    <input type="date" value={this.props.date.startDate}  className="form-control" id="start"/>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label for="end" className="col-sm-2 col-form-label">To</label>
                                 <div className="col-sm-10">
-                                    <input type="date" className="form-control" id="end" placeholder="Password" />
+                                    <input type="date"   value={this.props.date.endDate} className="form-control" id="end"/>
                                 </div>
+                                <p className="btn btn primary">Your Bill Amount is: {Number(this.state.totalDays)*Number(room[0].pricePerDay)} </p>
                             </div>
-                                <button className="btn btn-success justify-content-center m-auto">Checkout</button>
+                                <button type="submit" value = {room[0].name} onClick={this.handleSubmit} className="btn btn-success justify-content-center m-auto">Checkout</button>
                         </form>
                     </div>
                 </div>
@@ -56,4 +93,13 @@ export default class Booking extends Component  {
 }
 
 
+const mapStateToProps = (state) => ({
+    roomsDataBase:state.roomsDataBase,
+    date:state.date
+})
 
+const mapDispatchToProps = (dispatch) => ({
+    bookingRoom:(payload,name)=>dispatch(bookingRoom(payload,name))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Booking)

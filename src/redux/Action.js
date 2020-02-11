@@ -2,6 +2,8 @@ import axios from'axios'
 const FETCH_USER_REQUEST = "FETCH_USER_REQUEST"
 const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS"
 const FETCH_USER_FAILURE = "FETCH_USER_FALURE"
+const SET_DATE = 'SET_DATE'
+const BOOK_ROOM = "BOOK_ROOM"
 
 
 
@@ -39,6 +41,23 @@ const fetchData = (query = null) => {
     };
   };
 
-export {FETCH_USER_REQUEST,FETCH_USER_SUCCESS,FETCH_USER_FAILURE,fetchLoginRequest,fetchLoginSuccess,fetchLoginFailure,fetchData}
+const bookingRoom = (payload,name) => {
+  return {
+    type:BOOK_ROOM,
+    date:payload,
+    name
+  }
+}
+const setDate = (payload)=>{
+  return {
+    type:"SET_DATE",
+    payload
+  }
+}
+
+export {FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,FETCH_USER_FAILURE,
+  fetchLoginRequest,fetchLoginSuccess,fetchLoginFailure,
+  fetchData,bookingRoom,BOOK_ROOM,setDate,SET_DATE}
 
 
