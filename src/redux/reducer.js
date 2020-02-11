@@ -142,7 +142,11 @@ const reducer = (state=initialStore,action)=>{
     case BOOK_ROOM:
         const myRoom = state.roomsDataBase.map(ele=>{
             if(ele.name === action.name){
-                ele.isBookedOn.push(action.date)
+             ele.isBookedOn.push(action.date)
+             return ele
+            }
+            else{
+                return ele
             }
         })
         return{

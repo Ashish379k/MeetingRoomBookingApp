@@ -16,12 +16,12 @@ export default class Nav extends Component {
                             <li className="nav-item">
                                 <Link to ="/Home" className="nav-link">Home</Link>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link">Orders</Link>
-                            </li>
-                            <li className="nav-item">
+                            </li> */}
+                            {/* <li className="nav-item">
                                 <Link className="nav-link disabled">Disabled</Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

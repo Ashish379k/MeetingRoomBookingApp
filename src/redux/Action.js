@@ -45,7 +45,7 @@ const bookingRoom = (payload,name) => {
   return {
     type:BOOK_ROOM,
     date:payload,
-    name
+    name,
   }
 }
 const setDate = (payload)=>{

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bookingRoom} from '../../redux/Action'
 
@@ -27,6 +27,7 @@ class Booking extends Component  {
         const payload = {...this.props.date}
         this.props.bookingRoom(payload,newName)
         console.log(this.props.roomsDataBase)
+        this.props.history.push('/confirmation')
 
     }
     getDays = (date1,date2)=>{
@@ -40,11 +41,10 @@ class Booking extends Component  {
   
     render() {
         const room = this.props.roomsDataBase.filter(ele=>{
-            if(this.props.match.params.id){
                 if (ele.name == this.props.match.params.id){
                     return ele
                 }
-            }
+           
         })
         if(room.length!=0){
         return (
@@ -83,6 +83,7 @@ class Booking extends Component  {
                         </form>
                     </div>
                 </div>
+                <Link className="btn btn-warning" to ='/'>Back to Dashboard</Link>
             </div>
         )
         }

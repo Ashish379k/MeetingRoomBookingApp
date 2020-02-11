@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MeetingRoomCard from './MeetingRoomCard'
+// import MeetingRoomCard from './MeetingRoomCard'
 import {connect} from 'react-redux'
 import {getAllRooms} from '../../redux/Action' 
 import {Redirect,Link} from 'react-router-dom';
@@ -25,7 +25,10 @@ class Home extends Component {
      })
     }
     componentDidMount = ()=>{
-        let arr = [...this.state.arr,...this.props.roomsDataBase]
+       this.setMyState()
+    }
+    setMyState = ()=>{
+        let arr = [...this.props.roomsDataBase]
         this.setState({
             arr:arr
         })
@@ -48,7 +51,7 @@ class Home extends Component {
             arr:arr,
         })
     }
-        filterby = (e) =>{
+    filterby = (e) =>{
         var  arr = [...this.props.roomsDataBase]
          if(e.target.value=="Floor-1"){
             var newArr = arr.filter((ele)=>{
@@ -94,6 +97,7 @@ class Home extends Component {
         })
       
      }
+   
 
     render() {
         let pagination = []
@@ -130,7 +134,19 @@ class Home extends Component {
                     if(index<this.state.end && index >= this.state.start)
                      return  (
                     <div className="col-4 my-4">
-                     <MeetingRoomCard floor={ele.floor} name = {ele.name} capacity = {ele.capacity} pricePerDay = {ele.pricePerDay}/>
+                             <div className="card-deck justify-content-center">
+                                 <div className="card">
+                                     <img className="card-img-top" src="https://placeimg.com/240/200/any" alt="Card image cap" />
+                                     <div className="card-body">
+                                         <h5 className="card-title">At Floor : {ele.floor}</h5>
+                                         <p className="card-text">Meeting Room Name :{ele.name}</p>
+                                         <p className="card-text">Maximum Capacity :{ele.capacity}</p>
+                                         <p className="card-text">Price per Day is Rs :{ele.pricePerDay}</p>
+                                         <Link to={`/booking/${ele.name}`} className="btn btn-success">Book This Room</Link>
+                                     </div>
+                                 </div>
+                             </div>
+                     {/* <MeetingRoomCard floor={ele.floor} name = {ele.name} capacity = {ele.capacity} pricePerDay = {ele.pricePerDay}/> */}
                     </div>
                     )
                     })}
