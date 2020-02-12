@@ -47,9 +47,6 @@ function Registration(props) {
     const url = "http://localhost:8080/auth/register"
     props.registerUser(url,{...user})
   }
-  if(props.state.message !==''){
-    alert('registration successfull')
-  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

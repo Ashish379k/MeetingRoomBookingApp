@@ -137,8 +137,6 @@ const initialStore = {
     isLoggedin:false,
     date:{},
     token:'',
-    error:'',
-    message:''
 
 }
 
@@ -152,8 +150,6 @@ const reducer = (state=initialStore,action)=>{
             return {
                 ...state,
                 token:action.data.token,
-                error:action.data.error,
-                message:action.data.message
             }
     case FETCH_USER_FAILURE:
             return {

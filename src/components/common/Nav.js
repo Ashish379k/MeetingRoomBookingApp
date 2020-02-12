@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom"
+import {connect} from 'react-redux'
 
-export default class Nav extends Component {
+class Nav extends Component {
     render() {
         return (
             <div className="container-fluid bg-dark">
@@ -19,9 +20,16 @@ export default class Nav extends Component {
                             <li className="nav-item">
                                 <Link  to="/Orders" className="text-white nav-link">Orders</Link>
                             </li>
-                            <li className="nav-item">
+                            {this.props.token =='' ?
+                             (<li className="nav-item">
                                 <Link to="/auth/login" className="text-white nav-link">Login</Link>
-                            </li>
+                            </li>):
+                             (<li className="nav-item">
+                                <p className="text-white nav-link">{this.props.token}</p>
+                            </li>)
+                            }
+                           
+                           
                         </ul>
                     </div>
                 </div>
@@ -29,3 +37,12 @@ export default class Nav extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    token:state.token
+})
+
+const mapDispatchToProps = {
+    
+}
+export default connect(mapStateToProps,mapDispatchToProps) (Nav)

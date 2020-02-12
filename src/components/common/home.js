@@ -73,7 +73,7 @@ class Home extends Component {
         let pagination = []
         for (let i = 1;i<=Math.ceil(this.state.arr.length/5);i++){
             pagination.push(
-            <li class="page-item"><button className="page-link btn-primary" value={i} active ={this.state.isActive} onClick={this.handleClick}>{i}</button></li>
+            <li className="page-item" ><button className="page-link btn-primary" value={i}  onClick={this.handleClick}>{i}</button></li>
             )
         }
         return (
@@ -103,7 +103,7 @@ class Home extends Component {
                     {this.state.arr.map((ele,index)=>{
                     if(index<this.state.end && index >= this.state.start)
                      return  (
-                    <div className="col-4 my-4">
+                    <div className="col-4 my-4" key={ele.name}>
                      <MeetingRoomCard floor={ele.floor} name = {ele.name} capacity = {ele.capacity} pricePerDay = {ele.pricePerDay}/>
                     </div>
                     )
@@ -114,12 +114,12 @@ class Home extends Component {
                 <div className="row m-auto justify-content-center text-center">
                     <div className="col-6 m-auto">
                         <nav aria-label="Page navigation example m-auto">
-                            <ul class="pagination">
+                            <ul className="pagination">
                                 {pagination}
                             </ul>
                         </nav>
                     </div>
-                    <div className="col-6 m-auto">
+                    <div className="col-6 m-auto p-4 text-center">
                        <Link className="btn btn-warning" to ='/'>Back to Dashboard</Link>
                     </div>
                 </div>

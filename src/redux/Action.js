@@ -35,9 +35,12 @@ const loginUser = (url,payload) => {
     return axios
       .post(url, { ...payload })
       .then(res => {
+        alert("login successfull")
         return dispatch(fetchLoginSuccess(res.data));
       })
-      .catch(err => dispatch(fetchLoginFailure(err.error)));
+      .catch(err =>{
+        alert('invalid username or password')
+         dispatch(fetchLoginFailure(err.error))});
   };
   };
 const registerUser = (url,payload) =>{
@@ -46,7 +49,9 @@ const registerUser = (url,payload) =>{
     return axios
       .post(url, { ...payload })
       .then(res => {
+        alert(res.data.message)
         return dispatch(fetchLoginSuccess(res.data));
+
       })
       .catch(err => dispatch(fetchLoginFailure(err.error)));
   };

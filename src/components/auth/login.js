@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     const url ="http://localhost:8080/auth/login"
     props.loginUser(url,user)
   }
-  console.log(props.state)
+  if(props.token==""){
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -121,11 +121,15 @@ const useStyles = makeStyles(theme => ({
         </div>
       </Grid>
     </Grid>
-  );
+  )}
+  else{
+    return (<Redirect to ="/Home"/>)
+  }
 }
 
 const mapStateToProps = (state) => ({
-  state:state
+  state:state,
+  token:state.token
 })
 
 const mapDispatchToProps = dispatch =>({

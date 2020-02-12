@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bookingRoom} from '../../redux/Action'
 
@@ -40,13 +40,7 @@ class Booking extends Component  {
     }
   
     render() {
-        const room = this.props.roomsDataBase.filter(ele=>{
-                if (ele.name == this.props.match.params.id){
-                    return ele
-                }
-           
-        })
-        if(room.length!=0){
+        const room = this.props.roomsDataBase.filter(ele=>ele.name == this.props.match.params.id)
         return (
             <div className="container">
                 <div className="row">
@@ -86,17 +80,19 @@ class Booking extends Component  {
                 <Link className="btn btn-warning" to ='/'>Back to Dashboard</Link>
             </div>
         )
+        
         }
-        else{
-            return (<div>Hello</div>)
-        }
-    }
-}
+    }  
+
+    
+    
+
 
 
 const mapStateToProps = (state) => ({
     roomsDataBase:state.roomsDataBase,
-    date:state.date
+    date:state.date,
+    token:state.token
 })
 
 const mapDispatchToProps = (dispatch) => ({
