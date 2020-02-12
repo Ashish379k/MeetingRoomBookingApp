@@ -1,4 +1,5 @@
-import {BOOK_ROOM,SET_DATE} from './Action'
+import {BOOK_ROOM,SET_DATE,FETCH_USER_REQUEST,
+    FETCH_USER_SUCCESS,FETCH_USER_FAILURE,} from './Action'
 
 const initialStore = {
     roomsDataBase: [
@@ -134,11 +135,31 @@ const initialStore = {
 
     ],
     isLoggedin:false,
-    date:{}
+    date:{},
+    token:'',
+    error:'',
+    message:''
+
 }
 
 const reducer = (state=initialStore,action)=>{
     switch(action.type){
+    case FETCH_USER_REQUEST:
+            return {
+                ...state,
+            }
+    case FETCH_USER_SUCCESS:
+            return {
+                ...state,
+                token:action.data.token,
+                error:action.data.error,
+                message:action.data.message
+            }
+    case FETCH_USER_FAILURE:
+            return {
+                ...state,
+            }
+
     case BOOK_ROOM:
         const myRoom = state.roomsDataBase.map(ele=>{
             if(ele.name === action.name){

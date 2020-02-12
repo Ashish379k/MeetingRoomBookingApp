@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import MeetingRoomCard from './MeetingRoomCard'
+import MeetingRoomCard from './MeetingRoomCard'
 import {connect} from 'react-redux'
 import {getAllRooms} from '../../redux/Action' 
 import {Redirect,Link} from 'react-router-dom';
@@ -16,8 +16,8 @@ class Home extends Component {
         }
     }
     handleClick = (e)=>{
-      let start = Number(e.target.value-1)*5
-     let  end = Number(e.target.value)*5
+    let start = Number(e.target.value-1)*5
+    let  end = Number(e.target.value)*5
      this.setState({
          start:start,
          end:end,
@@ -25,9 +25,6 @@ class Home extends Component {
      })
     }
     componentDidMount = ()=>{
-       this.setMyState()
-    }
-    setMyState = ()=>{
         let arr = [...this.props.roomsDataBase]
         this.setState({
             arr:arr
@@ -53,52 +50,25 @@ class Home extends Component {
     }
     filterby = (e) =>{
         var  arr = [...this.props.roomsDataBase]
-         if(e.target.value=="Floor-1"){
-            var newArr = arr.filter((ele)=>{
-                 if(ele.floor=="1"){
-                     return ele
+        if(e.target.value !="0"){
+        var newend = this.props.roomsDataBase.length
+        var newArr = arr.filter((ele)=>{
+            if(ele.floor==e.target.value){
+                return ele
                  }
-             })
-         }
-         else if(e.target.value=="Floor-2"){
-            var newArr = arr.filter((ele)=>{
-                if(ele.floor=="2"){
-                    return ele
-                }
-            })
-        }
-         else if(e.target.value=="Floor-3"){
-            var newArr = arr.filter((ele)=>{
-                if(ele.floor=="3"){
-                    return ele
-                }
-            })
-        }
-         else if(e.target.value=="Floor-4"){
-            var  newArr = arr.filter((ele)=>{
-                if(ele.floor=="4"){
-                    return ele
-                }
-            })
-        }
-        else{
-            var newArr = [...arr]
-            this.setState({
-                arr:newArr,
-                start:0,
-                end:5
                 })
-            return
-        }
+          }
+          else{
+              var newArr = [...this.props.roomsDataBase]
+            var newend = 5
+              
+          }
         this.setState({
             arr:newArr,
             start:0,
-            end:this.props.roomsDataBase.length
+            end:newend
         })
-      
-     }
-   
-
+    }
     render() {
         let pagination = []
         for (let i = 1;i<=Math.ceil(this.state.arr.length/5);i++){
@@ -110,8 +80,8 @@ class Home extends Component {
         <> 
             <div className="container m-auto text-center">
                 <div className="row">
-                    <div className="col-6">
-                       <select onChange={this.sortby}>
+                    <div className="col-4 m-auto">
+                       <select className="form-control my-4" onChange={this.sortby}>
                            <option>Sort-By</option>
                            <option>Price-ASC</option>
                            <option>Price-DSC</option>
@@ -119,13 +89,13 @@ class Home extends Component {
                            <option>Capacity-DSC</option>
                        </select>
                     </div>
-                    <div className="col-6">
-                    <select onChange={this.filterby}>
-                           <option>Filter-By</option>
-                           <option>Floor-1</option>
-                           <option>Floor-2</option>
-                           <option>Floor-3</option>
-                           <option>Floor-4</option>
+                    <div className="col-4 m-auto">
+                    <select className="form-control"  onChange={this.filterby}>
+                           <option value="0">Filter-By</option>
+                           <option value="1">Floor-1</option>
+                           <option value="2">Floor-2</option>
+                           <option value="3">Floor-3</option>
+                           <option value="4">Floor-4</option>
                        </select>
                     </div>
                 </div>
@@ -134,19 +104,7 @@ class Home extends Component {
                     if(index<this.state.end && index >= this.state.start)
                      return  (
                     <div className="col-4 my-4">
-                             <div className="card-deck justify-content-center">
-                                 <div className="card">
-                                     <img className="card-img-top" src="https://placeimg.com/240/200/any" alt="Card image cap" />
-                                     <div className="card-body">
-                                         <h5 className="card-title">At Floor : {ele.floor}</h5>
-                                         <p className="card-text">Meeting Room Name :{ele.name}</p>
-                                         <p className="card-text">Maximum Capacity :{ele.capacity}</p>
-                                         <p className="card-text">Price per Day is Rs :{ele.pricePerDay}</p>
-                                         <Link to={`/booking/${ele.name}`} className="btn btn-success">Book This Room</Link>
-                                     </div>
-                                 </div>
-                             </div>
-                     {/* <MeetingRoomCard floor={ele.floor} name = {ele.name} capacity = {ele.capacity} pricePerDay = {ele.pricePerDay}/> */}
+                     <MeetingRoomCard floor={ele.floor} name = {ele.name} capacity = {ele.capacity} pricePerDay = {ele.pricePerDay}/>
                     </div>
                     )
                     })}

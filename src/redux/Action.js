@@ -29,23 +29,35 @@ const fetchLoginRequest = query => {
   };
 
 
-const fetchData = (query = null) => {
-    return dispatch => {
-      dispatch(fetchLoginRequest);
-      return axios
-        .get(`https://api.github.com/search/users?q=${query}`)
-        .then(res => {
-          return dispatch(fetchLoginSuccess(res.data));
-        })
-        .catch(err => dispatch(fetchLoginFailure(err)));
-    };
+const loginUser = (url,payload) => {
+  return dispatch => {
+    dispatch(fetchLoginRequest);
+    return axios
+      .post(url, { ...payload })
+      .then(res => {
+        return dispatch(fetchLoginSuccess(res.data));
+      })
+      .catch(err => dispatch(fetchLoginFailure(err.error)));
   };
+  };
+const registerUser = (url,payload) =>{
+  return dispatch => {
+    dispatch(fetchLoginRequest);
+    return axios
+      .post(url, { ...payload })
+      .then(res => {
+        return dispatch(fetchLoginSuccess(res.data));
+      })
+      .catch(err => dispatch(fetchLoginFailure(err.error)));
+  };
+};
+
 
 const bookingRoom = (payload,name) => {
   return {
     type:BOOK_ROOM,
     date:payload,
-    name,
+    name
   }
 }
 const setDate = (payload)=>{
@@ -55,9 +67,17 @@ const setDate = (payload)=>{
   }
 }
 
-export {FETCH_USER_REQUEST,
-  FETCH_USER_SUCCESS,FETCH_USER_FAILURE,
-  fetchLoginRequest,fetchLoginSuccess,fetchLoginFailure,
-  fetchData,bookingRoom,BOOK_ROOM,setDate,SET_DATE}
+export
+ {
+   FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
+  registerUser,
+  loginUser,
+  bookingRoom,
+  BOOK_ROOM,
+  setDate,
+  SET_DATE
+}
 
 
