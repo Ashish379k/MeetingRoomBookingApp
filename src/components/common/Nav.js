@@ -24,9 +24,16 @@ class Nav extends Component {
                              (<li className="nav-item">
                                 <Link to="/auth/login" className="text-white nav-link">Login</Link>
                             </li>):
-                             (<li className="nav-item">
+                             (
+                            <>
+                             <li className="nav-item">
                                 <p className="text-white nav-link">{this.props.token}</p>
-                            </li>)
+                            </li>
+                            <li className="nav-item fl-auto">
+                                <button className="btn btn-danger nav-link">Signout</button>
+                            </li>
+                            </>
+                            )
                             }
                            
                            

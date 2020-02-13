@@ -22,7 +22,6 @@ class Booking extends Component  {
     }
 
     handleSubmit = (e)=>{
-        e.preventDefault()
         const newName = e.target.value 
         const payload = {...this.props.date}
         this.props.bookingRoom(payload,newName)
@@ -41,11 +40,12 @@ class Booking extends Component  {
   
     render() {
         const room = this.props.roomsDataBase.filter(ele=>ele.name == this.props.match.params.id)
+        if(this.props.token !==''){
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-5 m-auto">
-                        <div className="card-deck justify-content-center">
+                    <div className="col-5 mx-auto my-3 p-3">
+                        <div className="card-deck justify-content-center my-2">
                             <div className="card">
                                 <img className="card-img-top" src="https://placeimg.com/240/200/any" alt="Card image cap" />
                                 <div className="card-body">
@@ -57,29 +57,32 @@ class Booking extends Component  {
                             </div>
                         </div>
                     </div>
-                    <div className="col-5 m-auto">
-                    <form className="text-center">
-                        <h1 className="text-center text-info"> your are booking-{room[0].name} </h1>
+                    <div className="col-5 m-auto border border-dark p-3">
+                    <div className="text-center">
+                        <p className="border border-dark p-2"><b>Reservation reciept</b></p>
                             <div className="form-group row">
-                                <label for="start" className="col-sm-2 col-form-label">From</label>
+                                <label htmlFor="start" className="col-sm-2 col-form-label"><b>From</b></label>
                                 <div className="col-sm-10">
-                                    <input type="date" value={this.props.date.startDate}  className="form-control" id="start"/>
+                                    <p  className="form-control" id="start">{this.props.date.startDate} </p>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label for="end" className="col-sm-2 col-form-label">To</label>
+                                <label htmlFor="end" className="col-sm-2 col-form-label"><b>To</b></label>
                                 <div className="col-sm-10">
-                                    <input type="date"   value={this.props.date.endDate} className="form-control" id="end"/>
+                                    <p  className="form-control" id="end">{this.props.date.endDate}</p>
                                 </div>
-                                <p className="btn btn primary">Your Bill Amount is: {Number(this.state.totalDays)*Number(room[0].pricePerDay)} </p>
+                                <p className="form-contol">Your Bill Amount is: {Number(this.state.totalDays)*Number(room[0].pricePerDay)} </p>
                             </div>
                                 <button type="submit" value = {room[0].name} onClick={this.handleSubmit} className="btn btn-success justify-content-center m-auto">Checkout</button>
-                        </form>
+                        </div>
+                                <Link className="btn btn-warning my-4" to ='/'>Back to Dashboard</Link>
                     </div>
                 </div>
-                <Link className="btn btn-warning" to ='/'>Back to Dashboard</Link>
             </div>
-        )
+        )}
+        else{
+            return(<Redirect to="/auth/login"/>)
+        }
         
         }
     }  
