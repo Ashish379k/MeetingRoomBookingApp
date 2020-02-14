@@ -7,7 +7,7 @@ export default class MeetingRoomCard extends Component {
         return (
             <div className="card-deck justify-content-center">
                 <div className="card">
-                    <img className="card-img-top" style ={{height:"30%",width:"34%px"}} src="https://source.unsplash.com/random" alt="Card image cap"/>
+                    <img className="card-img-top" style ={{height:"30%",width:"34%"}} src="https://source.unsplash.com/random" alt="Card image cap"/>
                         <div className="card-body">
                             <h5 className="card-title">At Floor : {this.props.floor}</h5>
                             <p className="card-text">Meeting Room Name :{this.props.name}</p>
