@@ -38,14 +38,14 @@ class Dashboard extends Component {
                                     alt="First slide" />
                                 <div className="mask rgba-black-light"></div>
                             </div>
-                            <div className="carousel-caption row">
-                                <div className="md-form col-5 m-auto">
+                            <div className="carousel-caption row p-2">
+                                <div className="md-form col-sm-10 col-md-5 m-md-auto">
                                     <input placeholder="Selected starting date"type="date" onChange={this.handleChange} name="startDate" className="form-control datepicker"/>
                                 </div>
-                                <div className="md-form col-5 m-auto">
-                                    <input placeholder="Selected starting date" type="date" onChange={this.handleChange} name="endDate" className="form-control datepicker m-4"/>
+                                <div className="md-form col-sm-12 my-sm-2 col-md-5 m-md-auto">
+                                    <input placeholder="Selected starting date" type="date" onChange={this.handleChange} name="endDate" className="form-control datepicker m-sm-3 m-md-4"/>
                                 </div>
-                                <div className="md-form col-5 m-auto">
+                                <div className="md-form col-sm-12 col-md-5 m-sm-2 m-md-auto">
                                     <button  onClick={this.handleSubmit} className="btn btn-success p-0" ><Link className="btn btn-success" to="/Home">Search Available Meeting Rooms</Link></button>
                                 </div>
                             </div>
