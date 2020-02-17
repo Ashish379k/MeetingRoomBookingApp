@@ -103,7 +103,7 @@ class Home extends Component {
                     {this.state.arr.map((ele,index)=>{
                     if(index<this.state.end && index >= this.state.start)
                      return  (
-                    <div className="col-4 my-4" key={ele.name}>
+                    <div className="col-sm-12 my-sm-1 col-md-6 my-md-2 col-lg-4 my-4" key={ele.name}>
                      <MeetingRoomCard floor={ele.floor} name = {ele.name} capacity = {ele.capacity} pricePerDay = {ele.pricePerDay}/>
                     </div>
                     )
